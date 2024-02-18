@@ -1,5 +1,6 @@
 package com.sophia.entity.concrates.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.business.Topic;
 
@@ -46,6 +47,12 @@ public class User {
 
     @ManyToMany(mappedBy = "followers")
     private List<User> following;
+
+    @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
+    private UserRole userRole;
+
+
 
 
 

@@ -1,6 +1,6 @@
 package com.sophia.controller;
 
-import com.sophia.dto.response.TopicResponse;
+import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
