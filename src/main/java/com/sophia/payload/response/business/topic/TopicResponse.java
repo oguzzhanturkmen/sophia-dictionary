@@ -1,4 +1,4 @@
-package com.sophia.dto.response;
+package com.sophia.payload.response.business.topic;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

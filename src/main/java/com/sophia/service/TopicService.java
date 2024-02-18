@@ -1,6 +1,8 @@
 package com.sophia.service;
 
-import com.sophia.dto.response.TopicResponse;
+import com.sophia.entity.concrates.business.Topic;
+import com.sophia.messages.Messages;
+import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.mapper.TopicMapper;
 import com.sophia.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +30,10 @@ public class TopicService {
         return topicRepository.findAll(pageable)
                 .map(topicMapper::mapToResponse);
 
+    }
+
+    public Topic getTopicById(Long id) {
+        return topicRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(Messages.TOPIC_NOT_FOUND + id));
     }
 }

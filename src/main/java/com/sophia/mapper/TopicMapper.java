@@ -1,6 +1,6 @@
 package com.sophia.mapper;
 
-import com.sophia.dto.response.TopicResponse;
+import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.entity.concrates.business.Topic;
 import org.springframework.stereotype.Component;
 
