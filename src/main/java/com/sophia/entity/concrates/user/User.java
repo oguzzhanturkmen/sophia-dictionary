@@ -53,6 +53,12 @@ public class User {
     private UserRole userRole;
 
 
+    private String bio;
+
+    private String profileImage;
+
+
+
 
 
 
