@@ -3,9 +3,11 @@ package com.sophia.service;
 import com.sophia.entity.concrates.user.User;
 import com.sophia.entity.concrates.user.UserRole;
 import com.sophia.entity.enums.RoleType;
+import com.sophia.messages.ErrorMessages;
 import com.sophia.payload.request.authentication.LoginRequest;
 import com.sophia.payload.request.authentication.RegisterRequest;
 import com.sophia.payload.response.authentication.AuthResponse;
+import com.sophia.payload.response.authentication.UserResponse.UserResponse;
 import com.sophia.repository.UserRepository;
 import com.sophia.repository.UserRoleRepository;
 import com.sophia.security.jwt.JwtUtils;
@@ -93,5 +95,32 @@ public class AuthenticationService {
 
 
         return ResponseEntity.ok("User registered successfully!");
+    }
+
+    public UserResponse findUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user.equals(null)) {
+            throw new RuntimeException(ErrorMessages.NOT_FOUND_USER_WITH_USERNAME_MESSAGE);
+        }
+
+        UserResponse userResponse = UserResponse.builder()
+                .userId(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .followingCount(user.getFollowing().size())
+                .followerCount(user.getFollowers().size())
+                .entryCount(user.getEntries().size())
+                .bio(user.getBio())
+                .profileImage(user.getProfileImage())
+                .build();
+
+
+
+
+
+
+        return userResponse;
+
     }
 }

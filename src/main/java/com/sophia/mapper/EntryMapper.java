@@ -12,6 +12,7 @@ public class EntryMapper {
                 .topicName(entry.getTopic().getName())
                 .entryContent(entry.getContent())
                 .entryOwner(entry.getAuthor().getUsername())
+                .entryOwnerId(entry.getAuthor().getId())
                 .likeCount(entry.getLikes().size())
                 .dislikeCount(entry.getDislikes().size())
                 .entryDate(entry.getCreationDate().toLocalDate().toString())
