@@ -1,4 +1,4 @@
-package com.sophia.payload.response.UserPorfileResponse;
+package com.sophia.payload.response.userPorfileResponse;
 
 import lombok.Builder;
 import lombok.Data;

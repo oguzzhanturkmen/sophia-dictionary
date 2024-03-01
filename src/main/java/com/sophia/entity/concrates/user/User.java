@@ -1,7 +1,9 @@
 package com.sophia.entity.concrates.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sophia.entity.concrates.business.Dislike;
 import com.sophia.entity.concrates.business.Entry;
+import com.sophia.entity.concrates.business.Like;
 import com.sophia.entity.concrates.business.Topic;
 
 import lombok.*;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -43,14 +46,21 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
-    private List<User> followers;
+    private Set<User> followers;
 
     @ManyToMany(mappedBy = "followers")
-    private List<User> following;
+    private Set<User> following;
 
     @OneToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Like> likes;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Dislike> dislikes;
+
 
 
     private String bio;

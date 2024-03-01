@@ -1,6 +1,6 @@
 package com.sophia.controller;
 
-import com.sophia.payload.response.UserPorfileResponse.UserProfileResponse;
+import com.sophia.payload.response.userPorfileResponse.UserProfileResponse;
 import com.sophia.payload.response.business.profile.UserFollowersResponse;
 import com.sophia.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,4 +27,10 @@ public class UserController {
     public ResponseEntity<List<UserFollowersResponse>> getUserFollowers(@PathVariable Long id){
         return userService.getUserFollowersById(id);
     }
+    @GetMapping("/get/{id}/following")
+    public ResponseEntity<List<UserFollowersResponse>> getUserFollowings(@PathVariable Long id){
+        return userService.getUserFollowingsById(id);
+    }
+
+
 }

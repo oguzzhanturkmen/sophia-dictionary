@@ -19,8 +19,8 @@ public class MainScreenController {
     private final TopicService topicService;
 
     @GetMapping
-    public Page<TopicResponse> getAllTopics(@RequestParam(value = "page" ,defaultValue = "0") int page,
-                                            @RequestParam(value = "size", defaultValue = "40") int size,
+    public Page<TopicResponse> getAllTopics(@RequestParam(value = "page" ,defaultValue = "1") int page,
+                                            @RequestParam(value = "size", defaultValue = "16") int size,
                                             @RequestParam(value = "sort", defaultValue = "createDate") String sort,
                                             @RequestParam(value = "direction", defaultValue = "DESC") String direction) {
         return topicService.getAllTopics(page, size, sort, direction);
