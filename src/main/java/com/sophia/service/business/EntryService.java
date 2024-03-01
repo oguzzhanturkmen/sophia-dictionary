@@ -1,17 +1,17 @@
-package com.sophia.service;
+package com.sophia.service.business;
 
 import com.sophia.entity.concrates.business.Dislike;
 import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.business.Like;
 import com.sophia.entity.concrates.business.Topic;
 import com.sophia.entity.concrates.user.User;
-import com.sophia.mapper.EntryMapper;
+import com.sophia.payload.mapper.business.EntryMapper;
 import com.sophia.payload.request.business.CreateEntryRequest;
 import com.sophia.payload.response.business.entry.EntryResponse;
-import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.repository.DislikeRepository;
-import com.sophia.repository.EntryRepository;
-import com.sophia.repository.LikeRepository;
+import com.sophia.repository.business.DislikeRepository;
+import com.sophia.repository.business.EntryRepository;
+import com.sophia.repository.business.LikeRepository;
+import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

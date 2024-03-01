@@ -1,9 +1,8 @@
 package com.sophia.controller;
 
-import com.sophia.mapper.TopicMapper;
 import com.sophia.payload.response.business.entry.EntryResponse;
 import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.service.UserService;
+import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

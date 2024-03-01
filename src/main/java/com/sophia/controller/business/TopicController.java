@@ -1,9 +1,9 @@
-package com.sophia.controller;
+package com.sophia.controller.business;
 
 import com.sophia.payload.request.business.CreateTopicRequest;
 import com.sophia.payload.response.business.topic.PostTopicResponse;
 import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.service.TopicService;
+import com.sophia.service.business.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/topic")
 @RequiredArgsConstructor
-public class MainScreenController {
+public class TopicController {
 
     private final TopicService topicService;
-
     @GetMapping
     public Page<TopicResponse> getAllTopics(@RequestParam(value = "page" ,defaultValue = "1") int page,
                                             @RequestParam(value = "size", defaultValue = "16") int size,
@@ -30,5 +29,4 @@ public class MainScreenController {
     public ResponseEntity<PostTopicResponse> saveTopic(@RequestBody CreateTopicRequest topicRequest, HttpServletRequest request) {
         return topicService.saveTopic(topicRequest, request);
     }
-
 }

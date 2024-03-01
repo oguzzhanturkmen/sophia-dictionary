@@ -1,8 +1,8 @@
-package com.sophia.controller;
+package com.sophia.controller.user;
 
 import com.sophia.payload.response.userPorfileResponse.UserProfileResponse;
 import com.sophia.payload.response.business.profile.UserFollowersResponse;
-import com.sophia.service.UserService;
+import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

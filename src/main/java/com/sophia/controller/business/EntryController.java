@@ -1,10 +1,8 @@
-package com.sophia.controller;
+package com.sophia.controller.business;
 
 import com.sophia.payload.request.business.CreateEntryRequest;
 import com.sophia.payload.response.business.entry.EntryResponse;
-import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.service.EntryService;
-import com.sophia.service.TopicService;
+import com.sophia.service.business.EntryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/topic")
+@RequestMapping("/entry")
 @RequiredArgsConstructor
-public class EntryScreenController {
+public class EntryController {
 
     private final EntryService entryService;
 

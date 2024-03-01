@@ -1,4 +1,4 @@
-package com.sophia.repository;
+package com.sophia.repository.business;
 
 import com.sophia.entity.concrates.business.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;

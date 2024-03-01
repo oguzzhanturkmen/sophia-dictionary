@@ -8,8 +8,8 @@ import com.sophia.payload.request.authentication.LoginRequest;
 import com.sophia.payload.request.authentication.RegisterRequest;
 import com.sophia.payload.response.authentication.AuthResponse;
 import com.sophia.payload.response.authentication.UserResponse.UserResponse;
-import com.sophia.repository.UserRepository;
-import com.sophia.repository.UserRoleRepository;
+import com.sophia.repository.user.UserRepository;
+import com.sophia.repository.user.UserRoleRepository;
 import com.sophia.security.jwt.JwtUtils;
 import com.sophia.security.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;

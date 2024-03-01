@@ -1,4 +1,4 @@
-package com.sophia.mapper;
+package com.sophia.payload.mapper.business;
 
 import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.user.User;

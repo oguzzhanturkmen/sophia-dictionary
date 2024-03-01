@@ -1,4 +1,4 @@
-package com.sophia.service;
+package com.sophia.service.business;
 
 import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.business.Topic;
@@ -7,9 +7,10 @@ import com.sophia.messages.Messages;
 import com.sophia.payload.request.business.CreateTopicRequest;
 import com.sophia.payload.response.business.topic.PostTopicResponse;
 import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.mapper.TopicMapper;
-import com.sophia.repository.EntryRepository;
-import com.sophia.repository.TopicRepository;
+import com.sophia.payload.mapper.business.TopicMapper;
+import com.sophia.repository.business.EntryRepository;
+import com.sophia.repository.business.TopicRepository;
+import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor

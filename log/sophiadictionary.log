@@ -254,8 +254,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215)
 	at jdk.proxy2/jdk.proxy2.$Proxy128.deleteByEntryIdAndUserId(Unknown Source)
-	at com.sophia.service.EntryService.likeEntry(EntryService.java:91)
-	at com.sophia.controller.EntryScreenController.likeEntry(EntryScreenController.java:39)
+	at com.sophia.service.business.EntryService.likeEntry(EntryService.java:91)
+	at com.sophia.controller.unauthorized.business.EntryController.likeEntry(EntryScreenController.java:39)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -435,8 +435,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215)
 	at jdk.proxy2/jdk.proxy2.$Proxy127.findByEntryIdAndUserId(Unknown Source)
-	at com.sophia.service.EntryService.dislikeEntry(EntryService.java:109)
-	at com.sophia.controller.EntryScreenController.dislikeEntry(EntryScreenController.java:43)
+	at com.sophia.service.business.EntryService.dislikeEntry(EntryService.java:109)
+	at com.sophia.controller.unauthorized.business.EntryController.dislikeEntry(EntryScreenController.java:43)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -566,8 +566,8 @@
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215)
 	at jdk.proxy2/jdk.proxy2.$Proxy127.findByEntryIdAndUserId(Unknown Source)
-	at com.sophia.service.EntryService.dislikeEntry(EntryService.java:109)
-	at com.sophia.controller.EntryScreenController.dislikeEntry(EntryScreenController.java:43)
+	at com.sophia.service.business.EntryService.dislikeEntry(EntryService.java:109)
+	at com.sophia.controller.unauthorized.business.EntryController.dislikeEntry(EntryScreenController.java:43)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -847,4 +847,91 @@
 ""2024-03-01 03:22:52,866 WARN  [http-nio-8084-exec-3] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
 ""2024-03-01 03:24:59,310 WARN  [http-nio-8084-exec-10] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
 ""2024-03-01 03:28:27,484 WARN  [http-nio-8084-exec-1] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 03:53:58,655 WARN  [http-nio-8084-exec-5] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 04:13:46,989 WARN  [http-nio-8084-exec-10] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 04:23:13,724 ERROR [http-nio-8084-exec-9] com.sophia.security.jwt.AuthEntryPointJwt:Unauthorized error: Full authentication is required to access this resource
+""2024-03-01 04:23:13,729 ERROR [http-nio-8084-exec-3] com.sophia.security.jwt.AuthEntryPointJwt:Unauthorized error: Full authentication is required to access this resource
+""2024-03-01 04:23:13,799 ERROR [http-nio-8084-exec-2] com.sophia.security.jwt.AuthEntryPointJwt:Unauthorized error: Full authentication is required to access this resource
+""2024-03-01 04:42:23,711 WARN  [http-nio-8084-exec-5] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 04:42:23,711 WARN  [http-nio-8084-exec-7] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 04:42:24,835 WARN  [http-nio-8084-exec-4] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 05:00:01,049 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-03-01 05:00:01,051 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-03-01 05:00:01,053 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+""2024-03-01 10:30:57,897 INFO  [main] com.sophia.SophiaDictionaryApplication:Starting SophiaDictionaryApplication using Java 17.0.9 on Oguzhan-MacBook-Air.local with PID 2717 (/Users/oguzhanturkmen/Desktop/sophia-dictionary/target/classes started by oguzhanturkmen in /Users/oguzhanturkmen/Desktop/sophia-dictionary)
+""2024-03-01 10:30:57,898 INFO  [main] com.sophia.SophiaDictionaryApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-03-01 10:30:58,240 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-03-01 10:30:58,267 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 24 ms. Found 6 JPA repository interfaces.
+""2024-03-01 10:30:58,528 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8084 (http)
+""2024-03-01 10:30:58,532 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-03-01 10:30:58,532 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-03-01 10:30:58,574 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-03-01 10:30:58,574 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 654 ms
+""2024-03-01 10:30:58,643 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-03-01 10:30:58,665 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-03-01 10:30:58,726 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-03-01 10:30:58,763 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-03-01 10:30:58,894 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-03-01 10:30:58,901 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-03-01 10:30:59,338 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-03-01 10:30:59,343 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-03-01 10:30:59,691 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-03-01 10:30:59,788 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e0f259e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fe9adfb, org.springframework.security.web.context.SecurityContextPersistenceFilter@8dedec8, org.springframework.security.web.header.HeaderWriterFilter@684f7f1c, org.springframework.web.filter.CorsFilter@f8fe81e, org.springframework.security.web.authentication.logout.LogoutFilter@472dbaf5, com.sophia.security.jwt.AuthTokenFilter@7112b21a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27bf574b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4cbb11e4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ad0cd43, org.springframework.security.web.session.SessionManagementFilter@6219006a, org.springframework.security.web.access.ExceptionTranslationFilter@452e2210, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6d4f266]
+""2024-03-01 10:30:59,908 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8084 (http) with context path ''
+""2024-03-01 10:30:59,914 INFO  [main] com.sophia.SophiaDictionaryApplication:Started SophiaDictionaryApplication in 2.284 seconds (JVM running for 2.62)
+""2024-03-01 10:31:01,739 INFO  [http-nio-8084-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2024-03-01 10:31:01,765 WARN  [http-nio-8084-exec-1] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 10:31:01,765 WARN  [http-nio-8084-exec-2] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 10:31:17,186 WARN  [http-nio-8084-exec-6] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 10:31:57,302 WARN  [http-nio-8084-exec-3] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "[id]"]
+""2024-03-01 10:53:16,819 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47s695ms).
+""2024-03-01 11:10:26,529 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m9s711ms).
+""2024-03-01 11:29:40,080 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=19m13s551ms).
+""2024-03-01 11:47:10,422 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m30s342ms).
+""2024-03-01 11:49:20,240 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m9s818ms).
+""2024-03-01 12:07:55,679 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m35s439ms).
+""2024-03-01 12:25:58,310 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m2s631ms).
+""2024-03-01 12:27:33,182 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m34s872ms).
+""2024-03-01 12:31:21,320 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m48s138ms).
+""2024-03-01 12:48:52,377 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m31s57ms).
+""2024-03-01 12:59:42,794 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m50s417ms).
+""2024-03-01 13:04:18,943 WARN  [http-nio-8084-exec-6] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 13:04:18,943 WARN  [http-nio-8084-exec-3] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 13:04:20,012 WARN  [http-nio-8084-exec-7] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 13:04:27,347 WARN  [http-nio-8084-exec-9] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "[id]"]
+""2024-03-01 13:12:55,204 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-03-01 13:12:55,206 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-03-01 13:12:55,207 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+""2024-03-01 13:12:56,637 INFO  [main] com.sophia.SophiaDictionaryApplication:Starting SophiaDictionaryApplication using Java 17.0.9 on Oguzhan-MacBook-Air.local with PID 4190 (/Users/oguzhanturkmen/Desktop/sophia-dictionary/target/classes started by oguzhanturkmen in /Users/oguzhanturkmen/Desktop/sophia-dictionary)
+""2024-03-01 13:12:56,638 INFO  [main] com.sophia.SophiaDictionaryApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-03-01 13:12:56,927 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-03-01 13:12:56,951 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 21 ms. Found 6 JPA repository interfaces.
+""2024-03-01 13:12:57,175 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8084 (http)
+""2024-03-01 13:12:57,179 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-03-01 13:12:57,179 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-03-01 13:12:57,223 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-03-01 13:12:57,223 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 569 ms
+""2024-03-01 13:12:57,284 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-03-01 13:12:57,316 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-03-01 13:12:57,378 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-03-01 13:12:57,417 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-03-01 13:12:57,499 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-03-01 13:12:57,506 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-03-01 13:12:57,874 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-03-01 13:12:57,879 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-03-01 13:12:58,172 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-03-01 13:12:58,251 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7af0693b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1791396b, org.springframework.security.web.context.SecurityContextPersistenceFilter@232b3b4c, org.springframework.security.web.header.HeaderWriterFilter@1bb0fa38, org.springframework.web.filter.CorsFilter@28d7bd6b, org.springframework.security.web.authentication.logout.LogoutFilter@452e2210, com.sophia.security.jwt.AuthTokenFilter@5cfe28e1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39296cef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7dfca9e6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7607340f, org.springframework.security.web.session.SessionManagementFilter@41c88e00, org.springframework.security.web.access.ExceptionTranslationFilter@6dfebd2a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7c523bdd]
+""2024-03-01 13:12:58,340 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8084 (http) with context path ''
+""2024-03-01 13:12:58,344 INFO  [main] com.sophia.SophiaDictionaryApplication:Started SophiaDictionaryApplication in 1.857 seconds (JVM running for 2.183)
+""2024-03-01 13:31:50,485 INFO  [http-nio-8084-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2024-03-01 13:34:15,210 ERROR [http-nio-8084-exec-10] com.sophia.security.jwt.AuthEntryPointJwt:Unauthorized error: Bad credentials
+""2024-03-01 13:36:24,550 WARN  [http-nio-8084-exec-4] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 13:36:24,554 WARN  [http-nio-8084-exec-7] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 13:36:25,504 WARN  [http-nio-8084-exec-2] org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+""2024-03-01 15:10:18,660 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s855ms).
+""2024-03-01 15:36:00,807 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=25m42s155ms).
+""2024-03-01 16:38:55,090 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool:HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53s850ms).
+""2024-03-01 16:38:55,424 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-03-01 16:38:55,426 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-03-01 16:38:55,427 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
 "

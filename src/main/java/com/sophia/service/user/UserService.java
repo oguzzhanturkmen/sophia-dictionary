@@ -1,13 +1,13 @@
-package com.sophia.service;
+package com.sophia.service.user;
 
 import com.sophia.entity.concrates.user.User;
-import com.sophia.mapper.EntryMapper;
-import com.sophia.mapper.TopicMapper;
+import com.sophia.payload.mapper.business.EntryMapper;
+import com.sophia.payload.mapper.business.TopicMapper;
 import com.sophia.payload.response.userPorfileResponse.UserProfileResponse;
 import com.sophia.payload.response.business.entry.EntryResponse;
 import com.sophia.payload.response.business.profile.UserFollowersResponse;
 import com.sophia.payload.response.business.topic.TopicResponse;
-import com.sophia.repository.UserRepository;
+import com.sophia.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

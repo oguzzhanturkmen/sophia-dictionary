@@ -1,4 +1,4 @@
-package com.sophia.repository;
+package com.sophia.repository.user;
 
 import com.sophia.entity.concrates.user.UserRole;
 import com.sophia.entity.enums.RoleType;

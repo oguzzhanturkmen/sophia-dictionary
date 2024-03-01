@@ -4,6 +4,7 @@ import com.sophia.entity.concrates.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+
 @Entity
 @Getter
 @Setter

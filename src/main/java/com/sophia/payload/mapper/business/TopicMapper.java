@@ -1,4 +1,4 @@
-package com.sophia.mapper;
+package com.sophia.payload.mapper.business;
 
 import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.entity.concrates.business.Topic;
