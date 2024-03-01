@@ -24,13 +24,22 @@ public class EntryScreenController {
                                             @RequestParam(value = "page", defaultValue = "0") int page,
                                             @RequestParam(value = "size", defaultValue = "10") int size,
                                             @RequestParam(value = "sort", defaultValue = "createDate") String sort,
-                                            @RequestParam(value = "direction", defaultValue = "DESC") String direction) {
-        return entryService.getAllEntries(id, page, size, sort, direction);
+                                            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+                                            HttpServletRequest request) {
+        return entryService.getAllEntries(id, page, size, sort, direction, request);
 
     }
 
     @PostMapping("/{id}/post")
     public void saveTopic(@PathVariable Long id, @RequestBody CreateEntryRequest entryRequest, HttpServletRequest request) {
         entryService.saveEntry(entryRequest, id, request);
+    }
+    @GetMapping("/{id}/{entryId}/likeEntry")
+    public String likeEntry(@PathVariable Long id, @PathVariable Long entryId, HttpServletRequest request) {
+        return entryService.likeEntry(id, entryId, request);
+    }
+    @GetMapping("/{topicId}/{entryId}/dislikeEntry")
+    public String dislikeEntry(@PathVariable Long topicId, @PathVariable Long entryId, HttpServletRequest request) {
+        return entryService.dislikeEntry(topicId, entryId, request);
     }
 }

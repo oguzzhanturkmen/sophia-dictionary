@@ -1,4 +1,4 @@
-package com.sophia.payload.response.UserPorfileResponse;
+package com.sophia.payload.response.userPorfileResponse;
 
 import com.sophia.payload.response.business.entry.EntryResponse;
 import com.sophia.payload.response.business.topic.TopicResponse;
@@ -25,5 +25,6 @@ public class UserProfileResponse {
     private String profileImage;
     private List<EntryResponse> entries;
     private List<TopicResponse> topics;
+
 
 }

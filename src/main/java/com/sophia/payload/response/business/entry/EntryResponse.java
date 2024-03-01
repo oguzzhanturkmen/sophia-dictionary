@@ -26,6 +26,8 @@ public class EntryResponse {
     private String entryDate;
     private String entryTime;
 
+    private boolean isLiked;
+    private boolean isDisliked;
 
 
 }
