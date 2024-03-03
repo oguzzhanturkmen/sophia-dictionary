@@ -45,7 +45,6 @@ public class User {
     private Set<User> followers;
 
     @ManyToMany(mappedBy = "followers")
-
     private Set<User> following;
 
     @OneToOne

@@ -1,33 +1,64 @@
 package com.sophia.payload.mapper.business;
 
 import com.sophia.entity.concrates.business.Entry;
+import com.sophia.entity.concrates.business.Topic;
 import com.sophia.entity.concrates.user.User;
+import com.sophia.payload.request.business.entry.CreateEntryRequest;
 import com.sophia.payload.response.business.entry.EntryResponse;
+import com.sophia.payload.response.business.entry.PublicEntryResponse;
+import com.sophia.service.helper.MethodHelper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
+@RequiredArgsConstructor
 public class EntryMapper {
-    public EntryResponse mapToResponse(Entry entry, User user) {
+
+    private final MethodHelper methodHelper;
+    public EntryResponse mapEntryToEntryResponse(Entry entry, User user) {
         return EntryResponse.builder()
                 .entryId(entry.getId())
-                .topicName(entry.getTopic().getName())
                 .entryContent(entry.getContent())
-                .entryOwner(entry.getAuthor().getUsername())
-                .entryOwnerId(entry.getAuthor().getId())
+                .entryAuthor(entry.getAuthor().getUsername())
+                .entryAuthorId(entry.getAuthor().getId())
                 .likeCount(entry.getLikes().size())
                 .dislikeCount(entry.getDislikes().size())
-                .entryDate(entry.getCreationDate().toLocalDate().toString())
-                .entryTime(entry.getCreationDate().toLocalTime().toString()).
-                isLiked(isLikedValidation(entry, user))
+                .entryDate(entry.getCreationDate().toLocalDate())
+                .entryTime(entry.getCreationDate().toLocalTime())
+                .isLiked(isLikedValidation(entry, user))
                 .isDisliked(isDislikedValidation(entry, user))
                 .build();
 }
+    public PublicEntryResponse mapEntryToPublicEntryResponse(Entry entry) {
+        return PublicEntryResponse.builder()
+                .entryId(entry.getId())
+                .entryContent(entry.getContent())
+                .entryAuthor(entry.getAuthor().getUsername())
+                .entryAuthorId(entry.getAuthor().getId())
+                .likeCount(entry.getLikes().size())
+                .dislikeCount(entry.getDislikes().size())
+                .entryDate(entry.getCreationDate().toLocalDate())
+                .entryTime(entry.getCreationDate().toLocalTime())
+                .build();
+    }
+    public Entry mapCreateEntryRequestToEntry(CreateEntryRequest createEntryRequest, User user, Topic topic) {
+        return Entry.builder()
+                .content(methodHelper.reduceMultipleSpacesToOne(createEntryRequest.getContent()))
+                .author(user)
+                .topic(topic)
+                .creationDate(LocalDateTime.now())
+                .lastUpdateDate(LocalDateTime.now())
+                .build();
+    }
 
-public Boolean isLikedValidation(Entry entry, User user) {
-    return entry.getLikes().stream().anyMatch(like -> like.getUser().equals(user));
-}
-public Boolean isDislikedValidation(Entry entry, User user) {
-    return entry.getDislikes().stream().anyMatch(dislike -> dislike.getUser().equals(user));
-}
+
+    private Boolean isLikedValidation(Entry entry, User user) {
+        return entry.getLikes().stream().anyMatch(like -> like.getUser().equals(user));
+    }
+    private Boolean isDislikedValidation(Entry entry, User user) {
+        return entry.getDislikes().stream().anyMatch(dislike -> dislike.getUser().equals(user));
+    }
 }
 

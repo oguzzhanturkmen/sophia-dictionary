@@ -5,24 +5,34 @@ import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.business.Like;
 import com.sophia.entity.concrates.business.Topic;
 import com.sophia.entity.concrates.user.User;
+import com.sophia.entity.event.EntryAddedEvent;
+import com.sophia.entity.event.TopicCreatedEvent;
+import com.sophia.exception.NotFoundException;
+import com.sophia.messages.ErrorMessages;
+import com.sophia.messages.SuccessMessages;
 import com.sophia.payload.mapper.business.EntryMapper;
-import com.sophia.payload.request.business.CreateEntryRequest;
+import com.sophia.payload.request.business.entry.CreateEntryRequest;
 import com.sophia.payload.response.business.entry.EntryResponse;
+import com.sophia.payload.response.business.topic.BasicTopicResponse;
+import com.sophia.payload.response.business.topic.EntriesAndBasicResponseTransfer;
+import com.sophia.payload.response.composite.CompositeEntryResponse;
+import com.sophia.payload.response.wrapper.ResponseMessage;
 import com.sophia.repository.business.DislikeRepository;
 import com.sophia.repository.business.EntryRepository;
 import com.sophia.repository.business.LikeRepository;
+import com.sophia.service.helper.PageableHelper;
 import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+import org.springframework.data.domain.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,93 +43,69 @@ public class EntryService {
     private final EntryMapper entryMapper;
     private final EntryRepository entryRepository;
     private final UserService userService;
-    private final DislikeRepository dislikeRepository;
-    private final LikeRepository likeRepository;
+    private final PageableHelper pageableHelper;
+    private final ApplicationEventPublisher eventPublisher;
 
 
-    public Page<EntryResponse> getAllEntries(Long id, int page, int size, String sort, String direction, HttpServletRequest request) {
+    public CompositeEntryResponse getAllEntriesByTopic(Long topicId, int page, int size, String sort, String direction, HttpServletRequest request) {
 
-        //************* Problem with sorting *********
-        Topic topic = topicService.getTopicById(id);
-        List<Entry> entries = topic.getEntries();
-        User user = new User();
-        boolean isLiked;
-        boolean isDisliked;
-        if (request.getAttribute("username") != null) {
-            String username = (String) request.getAttribute("username").toString();
-            user = userService.getUserByUsername(username);
+        User user = userService.getUserByUsername((String) request.getAttribute("username"));
+        Pageable pageable = pageableHelper.createPageableWithProperties(page, size, sort, direction);
+        EntriesAndBasicResponseTransfer entriesAndBasicResponseTransfer = topicService.getEntriesAndBasicResponseByTopic(topicId);
+        List<Entry> entries = entriesAndBasicResponseTransfer.getEntries();
+        BasicTopicResponse basicTopicResponse = entriesAndBasicResponseTransfer.getTopic();
 
+        Page<EntryResponse> entryResponses = new PageImpl<>(entries.stream()
+                .map(entry -> entryMapper.mapEntryToEntryResponse(entry, user))
+                .collect(Collectors.toList()), pageable, entries.size());
 
-
-        }
-
-
-        User finalUser = user;
-        List<EntryResponse> entryResponses = entries.stream()
-                .map(entry -> entryMapper.mapToResponse(entry, finalUser))
-                .collect(Collectors.toList());
-
-        Page<EntryResponse> entryResponsePage = new PageImpl<>(entryResponses, PageRequest.of(page, size).withSort(Sort.by(sort).ascending()), entries.size());
-        if (Objects.equals(direction, "DESC")) {
-            entryResponsePage = new PageImpl<>
-                    (entryResponses, PageRequest.of(page, size).withSort(Sort.by(sort).descending()), entries.size());
-        }
-
-        return entryResponsePage;
+        return CompositeEntryResponse.builder()
+                .entries(entryResponses)
+                .topic(basicTopicResponse)
+                .build();
     }
-    public void saveEntry(Entry entry) {
+    public void saveEntryService(Entry entry) {
        entryRepository.save(entry);
     }
-    public void saveEntry(CreateEntryRequest entryRequest, Long id, HttpServletRequest request) {
-        User user = userService.getUserByUsername(request.getAttribute("username").toString());
+    public ResponseMessage saveEntry(CreateEntryRequest entryRequest, Long topicId, HttpServletRequest request) {
+        User user = userService.getUserByUsername((String) request.getAttribute("username"));
+        Topic topic = topicService.getTopicByIdService(topicId);
+        Entry entry = entryMapper.mapCreateEntryRequestToEntry(entryRequest,  user, topic);
 
-        Entry entry = new Entry();
-        entry.setTopic(topicService.getTopicById(id));
-        entry.setContent(entryRequest.getContent());
-        entry.setCreationDate(LocalDateTime.now());
-        entry.setAuthor(user);
-        saveEntry(entry);
+        entryRepository.save(entry);
+        eventPublisher.publishEvent(new EntryAddedEvent(this, topicId));
 
 
-
-    }
-
-    public String likeEntry(Long topicId, Long entryId, HttpServletRequest request) {
-        String username = (String) request.getAttribute("username").toString();
-        User user = userService.getUserByUsername(username);
-
-        if(likeRepository.existsByEntryIdAndUserId(entryId, user.getId())){
-            Like like = likeRepository.findByEntryIdAndUserId(entryId, user.getId());
-            likeRepository.delete(like);
-            return "false";
-        }
-
-            Like like = new Like();
-            like.setEntry(entryRepository.findById(entryId).orElseThrow(() -> new IllegalArgumentException("Entry not found")));
-            like.setUser(user);
-            likeRepository.save(like);
-            return "true";
-
+        return ResponseMessage.builder()
+                .message(SuccessMessages.ENTRY_SUCCESSFULLY_CREATED)
+                .httpStatus(HttpStatus.CREATED)
+                .build();
     }
 
 
-    public String dislikeEntry(Long topicId, Long entryId, HttpServletRequest request) {
-        String username = (String) request.getAttribute("username").toString();
-        User user = userService.getUserByUsername(username);
-        if(dislikeRepository.existsByEntryIdAndUserId(entryId, user.getId())){
-            Dislike dislike = dislikeRepository.findByEntryIdAndUserId(entryId, user.getId());
-            dislikeRepository.delete(dislike);
-            return "false";
-        }
+    private Entry isEntryExist(Long id) {
+        return entryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.ENTRY_NOT_FOUND, id)));
+    }
 
-        Dislike dislike = new Dislike();
-        dislike.setEntry(entryRepository.findById(entryId).orElseThrow(() -> new IllegalArgumentException("Entry not found")));
-        dislike.setUser(user);
-        dislikeRepository.save(dislike);
-        return "true";
+    public Entry getEntryById(Long id) {
+        return isEntryExist(id);
+    }
 
-
-
-
+    public void saveEntryByTopic(Topic topic, User user){
+        Entry entry = Entry.builder()
+                .topic(topic)
+                .author(user)
+                .creationDate(LocalDateTime.now())
+                .lastUpdateDate(LocalDateTime.now())
+                .build();
+        entryRepository.save(entry);
+    }
+    @Async
+    @EventListener
+    public void onTopicCreated(TopicCreatedEvent event) {
+        Long topicId = event.getTopicId();
+        Topic topic = topicService.getTopicByIdService(topicId);
+        saveEntryByTopic(topic, topic.getAuthor());
     }
 }

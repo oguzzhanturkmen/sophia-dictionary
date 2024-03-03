@@ -3,11 +3,15 @@ package com.sophia.service;
 import com.sophia.entity.concrates.user.User;
 import com.sophia.entity.concrates.user.UserRole;
 import com.sophia.entity.enums.RoleType;
+import com.sophia.exception.NotFoundException;
 import com.sophia.messages.ErrorMessages;
+import com.sophia.messages.SuccessMessages;
 import com.sophia.payload.request.authentication.LoginRequest;
 import com.sophia.payload.request.authentication.RegisterRequest;
+import com.sophia.payload.request.user.UpdatePasswordRequest;
 import com.sophia.payload.response.authentication.AuthResponse;
-import com.sophia.payload.response.authentication.UserResponse.UserResponse;
+import com.sophia.payload.response.user.BasicUserResponse;
+import com.sophia.payload.response.wrapper.BasicResponseMessage;
 import com.sophia.repository.user.UserRepository;
 import com.sophia.repository.user.UserRoleRepository;
 import com.sophia.security.jwt.JwtUtils;
@@ -22,6 +26,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -71,16 +77,16 @@ public class AuthenticationService {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Error: Username is already taken!");
+                    .body(ErrorMessages.USERNAME_ALREADY_EXISTS);
         }
 
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body("Error: Email is already in use!");
+                    .body(ErrorMessages.EMAIL_ALREADY_EXISTS);
         }
         UserRole userRole = (UserRole) userRoleRepository.findByRoleType(RoleType.USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new NotFoundException(ErrorMessages.ROLE_NOT_FOUND));
        User user = User.builder()
                .username(registerRequest.getUsername())
                     .email(registerRequest.getEmail())
@@ -90,36 +96,46 @@ public class AuthenticationService {
 
         userRepository.save(user);
 
-
-
-
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    public UserResponse findUserByUsername(String username) {
+    public BasicUserResponse findUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
 
-        if (user.equals(null)) {
-            throw new RuntimeException(ErrorMessages.NOT_FOUND_USER_WITH_USERNAME_MESSAGE);
+        if (Objects.isNull(user)) {
+            throw new NotFoundException(ErrorMessages.NOT_FOUND_USER_WITH_USERNAME_MESSAGE);
         }
 
-        UserResponse userResponse = UserResponse.builder()
+        return BasicUserResponse.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .followingCount(user.getFollowing().size())
-                .followerCount(user.getFollowers().size())
-                .entryCount(user.getEntries().size())
-                .bio(user.getBio())
-                .profileImage(user.getProfileImage())
+                .role(user.getUserRole().getRoleName())
                 .build();
+    }
+    public BasicResponseMessage updatePassword(UpdatePasswordRequest updatePasswordRequest, HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
+        User user = userRepository.findByUsername(username);
 
+        if(!Boolean.TRUE.equals(updatePasswordRequest.getNewPassword().equals(updatePasswordRequest.getNewPasswordSecond()))){
+            return  BasicResponseMessage.builder()
+                    .message(ErrorMessages.PASSWORDS_DOES_NOT_MATCH)
+                    .build();
+        }
+        if(!encoder.matches(updatePasswordRequest.getOldPassword(), user.getPassword())){
+            return  BasicResponseMessage.builder()
+                    .message(ErrorMessages.WRONG_PASSWORD)
+                    .build();
+        }
+        user.setPassword(encoder.encode(updatePasswordRequest.getNewPassword()));
+        userRepository.save(user);
 
+        return BasicResponseMessage.builder()
+                .message(SuccessMessages.PASSWORD_UPDATED_SUCCESSFULLY)
+                .build();
+    }
 
-
-
-
-        return userResponse;
-
+    public BasicUserResponse findUserByRequest(HttpServletRequest request) {
+        return findUserByUsername((String) request.getAttribute("username"));
     }
 }

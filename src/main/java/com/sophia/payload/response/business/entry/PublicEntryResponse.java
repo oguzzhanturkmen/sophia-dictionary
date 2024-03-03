@@ -7,9 +7,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+
 @SuperBuilder(toBuilder = true)
-public class EntryResponse extends BaseEntryResponse {
-    private boolean isLiked;
-    private boolean isDisliked;
+public class PublicEntryResponse extends BaseEntryResponse {
+
 }

@@ -1,21 +1,19 @@
-package com.sophia.payload.response.business;
+package com.sophia.payload.response.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder(toBuilder = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseMessage <E>{
+public class BasicResponseMessage {
 
-    private E object;
+    private Boolean state;
     private String message;
-    private HttpStatus httpStatus;
 
 }

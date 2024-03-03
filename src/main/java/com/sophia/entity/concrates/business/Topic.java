@@ -28,15 +28,18 @@ public class Topic {
     @NotNull(message = "Name cannot be empty")
     private String name;
 
+    @NotNull(message = "Creation cannot be empty")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
     private List<Entry> entries;
 
+    @NotNull(message = "Author cannot be empty")
     @ManyToOne
     private User author;
 
+    @NotNull(message = "Last update date cannot be empty")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lastUpdateDate;
 

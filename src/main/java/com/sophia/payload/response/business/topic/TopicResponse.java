@@ -1,18 +1,19 @@
 package com.sophia.payload.response.business.topic;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.sophia.payload.response.abstracts.BaseTopicResponse;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
-public class TopicResponse {
+public class TopicResponse extends BaseTopicResponse {
 
-    private Long topicId;
-    private String topicName;
     private Integer entryCount;
-
+    private LocalDateTime creationDate;
+    private LocalDateTime lastModifiedDate;
 }
