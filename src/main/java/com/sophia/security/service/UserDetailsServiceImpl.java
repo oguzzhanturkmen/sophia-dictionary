@@ -1,7 +1,7 @@
 package com.sophia.security.service;
 
 import com.sophia.entity.concrates.user.User;
-import com.sophia.repository.UserRepository;
+import com.sophia.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -40,19 +40,15 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Topic> topics;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinTable(
-            name = "tbl_user_followers",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "follower_id")
-    )
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "tbl_user_followers", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
     private Set<User> followers;
 
     @ManyToMany(mappedBy = "followers")
     private Set<User> following;
 
     @OneToOne
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
@@ -61,15 +57,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Dislike> dislikes;
 
-
-
     private String bio;
-
-    private String profileImage;
-
-
-
-
+    @Lob
+    private byte[] profileImage;
 
 
 }
