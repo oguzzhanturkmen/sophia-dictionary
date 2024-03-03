@@ -92,20 +92,25 @@ public class EntryService {
         return isEntryExist(id);
     }
 
-    public void saveEntryByTopic(Topic topic, User user){
+    public void saveEntryByTopic(Topic topic, User user ,String content){
+        System.out.println("*********************************************************");
         Entry entry = Entry.builder()
                 .topic(topic)
                 .author(user)
                 .creationDate(LocalDateTime.now())
                 .lastUpdateDate(LocalDateTime.now())
+                .content(content)
                 .build();
         entryRepository.save(entry);
     }
     @Async
     @EventListener
     public void onTopicCreated(TopicCreatedEvent event) {
+        System.out.println("2*******************");
         Long topicId = event.getTopicId();
         Topic topic = topicService.getTopicByIdService(topicId);
-        saveEntryByTopic(topic, topic.getAuthor());
+        User user = userService.getUserByUsername(event.getUsername());
+        String content = event.getContent();
+        saveEntryByTopic(topic, user, content);
     }
 }

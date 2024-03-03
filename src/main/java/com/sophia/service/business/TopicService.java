@@ -59,8 +59,8 @@ public class TopicService {
     public ResponseMessage<BasicTopicResponse> saveTopic(CreateTopicRequest topicRequest , HttpServletRequest request) {
         User user = userService.getUserByUsername(request.getAttribute("username").toString());
         Topic savedTopic = topicRepository.save(topicMapper.mapCreateTopicRequestToTopic(topicRequest, user));
-
-        eventPublisher.publishEvent(new TopicCreatedEvent(this, savedTopic.getId()));
+        Long topicId = savedTopic.getId();
+        eventPublisher.publishEvent(new TopicCreatedEvent(this, topicId, user.getUsername(), topicRequest.getContent()));
         //entryService.saveEntryByTopic(savedTopic ,user);
 
         return ResponseMessage.<BasicTopicResponse>builder()
