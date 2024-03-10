@@ -17,4 +17,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
 
     @Query("SELECT t FROM Topic t WHERE  t.lastUpdateDate >= :lastWeek")
     Page<Topic> findTopicsWithRecentUpdates(LocalDateTime lastWeek, Pageable pageable);
+
+
+    Page<Topic> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
 }

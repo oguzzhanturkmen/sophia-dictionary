@@ -14,6 +14,7 @@ import com.sophia.payload.response.business.topic.BasicTopicResponse;
 import com.sophia.payload.response.business.topic.EntriesAndBasicResponseTransfer;
 import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.payload.response.wrapper.ResponseMessage;
+import com.sophia.repository.business.TagRepository;
 import com.sophia.repository.business.TopicRepository;
 import com.sophia.service.helper.PageableHelper;
 import com.sophia.service.user.UserService;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -40,6 +42,7 @@ public class TopicService {
     private final UserService userService;
     private final PageableHelper pageableHelper;
     private final ApplicationEventPublisher eventPublisher;
+
 
 
     public Page<TopicResponse> getAllTopics(int page, int size, String sort, String direction) {
@@ -101,6 +104,14 @@ public class TopicService {
                 .entries(topic.getEntries())
                 .topic(topicMapper.mapToBasicTopicResponse(topic))
                 .build();
+    }
+    public Page<?> getTopicByKeyword(String title, int page) {
+        Pageable pageable = pageableHelper.createPageableWithProperties(page, 10, "lastUpdateDate", "DESC");
+
+        return topicRepository.findByNameContainingIgnoreCase(title, pageable)
+                .map(topicMapper::mapToTopicResponse);
+
+
     }
 
 }
