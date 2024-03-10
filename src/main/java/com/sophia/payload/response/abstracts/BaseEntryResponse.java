@@ -18,6 +18,7 @@ import java.time.LocalTime;
 public abstract class BaseEntryResponse {
 
     private Long entryId;
+    private Long topicId;
     private String entryContent;
     private String entryAuthor;
     private Long entryAuthorId;

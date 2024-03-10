@@ -11,7 +11,7 @@ import java.util.Objects;
 public class PageableHelper {
 
     public Pageable createPageableWithProperties(int page, int size, String sortBy, String order) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy).ascending());
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy).descending());
         if(Objects.equals(order, "desc")){
             pageable = PageRequest.of(page,size, Sort.by(sortBy).descending());
         }

@@ -12,4 +12,5 @@ import lombok.experimental.SuperBuilder;
 public class EntryResponse extends BaseEntryResponse {
     private boolean isLiked;
     private boolean isDisliked;
+    private String entryTitle;
 }

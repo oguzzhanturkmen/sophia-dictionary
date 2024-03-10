@@ -1,9 +1,6 @@
 package com.sophia.service.business;
 
-import com.sophia.entity.concrates.business.Dislike;
-import com.sophia.entity.concrates.business.Entry;
-import com.sophia.entity.concrates.business.Like;
-import com.sophia.entity.concrates.business.Topic;
+import com.sophia.entity.concrates.business.*;
 import com.sophia.entity.concrates.user.User;
 import com.sophia.entity.event.EntryAddedEvent;
 import com.sophia.entity.event.TopicCreatedEvent;
@@ -20,6 +17,8 @@ import com.sophia.payload.response.wrapper.ResponseMessage;
 import com.sophia.repository.business.DislikeRepository;
 import com.sophia.repository.business.EntryRepository;
 import com.sophia.repository.business.LikeRepository;
+import com.sophia.repository.business.TagRepository;
+import com.sophia.service.helper.MethodHelper;
 import com.sophia.service.helper.PageableHelper;
 import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,6 +46,8 @@ public class EntryService {
     private final UserService userService;
     private final PageableHelper pageableHelper;
     private final ApplicationEventPublisher eventPublisher;
+    private final TagRepository tagRepository;
+    private final MethodHelper methodHelper;
 
 
     public CompositeEntryResponse getAllEntriesByTopic(Long topicId, int page, int size, String sort, String direction, HttpServletRequest request) {
@@ -70,7 +73,15 @@ public class EntryService {
     public ResponseMessage saveEntry(CreateEntryRequest entryRequest, Long topicId, HttpServletRequest request) {
         User user = userService.getUserByUsername((String) request.getAttribute("username"));
         Topic topic = topicService.getTopicByIdService(topicId);
-        Entry entry = entryMapper.mapCreateEntryRequestToEntry(entryRequest,  user, topic);
+
+        List<String> tagNames = methodHelper.tagNameExtractor(entryRequest);
+        
+        Set<Tag> tags = tagNames.stream()
+                        .map(name -> tagRepository.findByName(name)
+                        .orElseGet(() -> tagRepository.save(Tag.builder().name(name).build())))
+                        .collect(Collectors.toSet());
+
+        Entry entry = entryMapper.mapCreateEntryRequestToEntry(entryRequest,  user, topic, tags);
 
         entryRepository.save(entry);
         eventPublisher.publishEvent(new EntryAddedEvent(this, topicId));
@@ -102,6 +113,9 @@ public class EntryService {
                 .content(content)
                 .build();
         entryRepository.save(entry);
+    }
+    public List<Long> getTopicIdsByTagNames(List<String> tagNames) {
+        return null;
     }
     @Async
     @EventListener

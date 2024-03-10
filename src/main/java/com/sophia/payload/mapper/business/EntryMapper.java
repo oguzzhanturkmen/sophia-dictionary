@@ -1,6 +1,7 @@
 package com.sophia.payload.mapper.business;
 
 import com.sophia.entity.concrates.business.Entry;
+import com.sophia.entity.concrates.business.Tag;
 import com.sophia.entity.concrates.business.Topic;
 import com.sophia.entity.concrates.user.User;
 import com.sophia.payload.request.business.entry.CreateEntryRequest;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class EntryMapper {
     public EntryResponse mapEntryToEntryResponse(Entry entry, User user) {
         return EntryResponse.builder()
                 .entryId(entry.getId())
+                .topicId(entry.getTopic().getId())
                 .entryContent(entry.getContent())
                 .entryAuthor(entry.getAuthor().getUsername())
                 .entryAuthorId(entry.getAuthor().getId())
@@ -29,11 +32,13 @@ public class EntryMapper {
                 .entryTime(entry.getCreationDate().toLocalTime())
                 .isLiked(isLikedValidation(entry, user))
                 .isDisliked(isDislikedValidation(entry, user))
+                .entryTitle(entry.getTopic().getName())
                 .build();
 }
     public PublicEntryResponse mapEntryToPublicEntryResponse(Entry entry) {
         return PublicEntryResponse.builder()
                 .entryId(entry.getId())
+                .topicId(entry.getTopic().getId())
                 .entryContent(entry.getContent())
                 .entryAuthor(entry.getAuthor().getUsername())
                 .entryAuthorId(entry.getAuthor().getId())
@@ -43,11 +48,12 @@ public class EntryMapper {
                 .entryTime(entry.getCreationDate().toLocalTime())
                 .build();
     }
-    public Entry mapCreateEntryRequestToEntry(CreateEntryRequest createEntryRequest, User user, Topic topic) {
+    public Entry mapCreateEntryRequestToEntry(CreateEntryRequest createEntryRequest, User user, Topic topic , Set<Tag> tags) {
         return Entry.builder()
                 .content(methodHelper.reduceMultipleSpacesToOne(createEntryRequest.getContent()))
                 .author(user)
                 .topic(topic)
+                .tags(tags)
                 .creationDate(LocalDateTime.now())
                 .lastUpdateDate(LocalDateTime.now())
                 .build();
