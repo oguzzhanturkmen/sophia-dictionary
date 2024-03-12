@@ -30,6 +30,7 @@ public class Entry {
     private Topic topic;
 
     @NotNull(message = "Content cannot be empty")
+    @Column(columnDefinition = "TEXT", length = 10000)
     private String content;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

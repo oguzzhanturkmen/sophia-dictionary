@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CreateEntryRequest {
     @NotBlank(message = "Entry content cannot be blank")
-    @Size(min = 2, max = 1000, message = "Entry content must be between 2 and 1000 characters")
+    @Size(min = 2, max = 10000, message = "Entry content must be between 2 and 1000 characters")
     private String content;
     private String tags;
 
