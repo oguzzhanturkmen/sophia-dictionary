@@ -1,5 +1,6 @@
 package com.sophia.service.business;
 
+import com.sophia.entity.concrates.business.ChannelTag;
 import com.sophia.entity.concrates.business.Entry;
 import com.sophia.entity.concrates.business.Topic;
 import com.sophia.entity.concrates.user.User;
@@ -14,6 +15,7 @@ import com.sophia.payload.response.business.topic.BasicTopicResponse;
 import com.sophia.payload.response.business.topic.EntriesAndBasicResponseTransfer;
 import com.sophia.payload.response.business.topic.TopicResponse;
 import com.sophia.payload.response.wrapper.ResponseMessage;
+import com.sophia.repository.business.ChannelRepository;
 import com.sophia.repository.business.TagRepository;
 import com.sophia.repository.business.TopicRepository;
 import com.sophia.service.helper.PageableHelper;
@@ -42,6 +44,7 @@ public class TopicService {
     private final UserService userService;
     private final PageableHelper pageableHelper;
     private final ApplicationEventPublisher eventPublisher;
+    private final ChannelRepository channelRepository;
 
 
 
@@ -114,4 +117,9 @@ public class TopicService {
 
     }
 
+    public Page<TopicResponse> getTopicsByTags(int page, int size, String sort, String direction, String[] tags) {
+        Pageable pageable = pageableHelper.createPageableWithProperties(page, size, sort, direction);
+        return topicRepository.findTopicsByChannelTags(tags, pageable)
+                .map(topicMapper::mapToTopicResponse);
+    }
 }

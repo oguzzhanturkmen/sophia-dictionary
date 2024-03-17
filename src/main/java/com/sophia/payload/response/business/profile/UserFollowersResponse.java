@@ -15,5 +15,5 @@ public class UserFollowersResponse {
         private Long userId;
         private Integer entryCount;
         private String bio;
-        private byte[] profileImage;
+        private String profileImage;
 }

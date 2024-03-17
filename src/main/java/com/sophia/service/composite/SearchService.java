@@ -1,5 +1,7 @@
 package com.sophia.service.composite;
 
+import com.sophia.entity.concrates.business.Entry;
+import com.sophia.entity.concrates.business.Tag;
 import com.sophia.entity.concrates.business.Topic;
 import com.sophia.payload.mapper.business.EntryMapper;
 import com.sophia.payload.mapper.business.TopicMapper;
@@ -14,10 +16,12 @@ import com.sophia.service.business.TopicService;
 import com.sophia.service.helper.PageableHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,15 +39,27 @@ public class SearchService {
 
     public Page<?> getSearchByKeyword(String query, int page) {
         Pageable pageable ;
+        System.out.println("******************************************" + query);
+
         if (query.startsWith("@")){
             pageable = pageableHelper.createPageableWithProperties(page, 16, "username", "DESC");
             return userRepository.findByUsernameContainingIgnoreCase(query.substring(1), pageable)
                     .map(userMapper::mapUserToUserFollowersResponse);
         }
         else if (query.startsWith("#")){
+            Tag tag = tagRepository.findByName(query.substring(1)).orElseThrow(() -> new RuntimeException("Tag not found"));
             pageable = pageableHelper.createPageableWithProperties(page, 16, "lastUpdateDate", "DESC");
-            return entryRepository.findByTagNameInclusive(query.substring(1), pageable)
-                    .map(entryMapper::mapEntryToPublicEntryResponse);
+            Page<Entry> entryPage = entryRepository.findByTagsNameIncludingIgnoreCase(tag.getName(), pageable);
+
+            List<TopicResponse> distinctTopicResponses = entryPage.getContent().stream()
+                    .map(entry -> topicMapper.mapToTopicResponse(entry.getTopic()))
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            return new PageImpl<>(distinctTopicResponses, pageable, distinctTopicResponses.size());
+
+
+
         }
         else {
             pageable = pageableHelper.createPageableWithProperties(page, 16, "lastUpdateDate", "DESC");

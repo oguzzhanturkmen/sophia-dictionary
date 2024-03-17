@@ -40,5 +40,14 @@ public class TopicController {
                                                 @RequestParam(value = "direction", defaultValue = "DESC") String direction) {
         return topicService.getTrendingTopics( page, size, sort, direction);
     }
+    @GetMapping("/getTopicsByTags")
+    public Page<TopicResponse> getTopicsByTags(@RequestParam(value = "page" ,defaultValue = "0") int page,
+                                              @RequestParam(value = "size", defaultValue = "16") int size,
+                                              @RequestParam(value = "sort", defaultValue = "lastUpdateDate") String sort,
+                                              @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+                                              @RequestParam(value = "tags") String[] tags) {
+        return topicService.getTopicsByTags(page, size, sort, direction, tags);
+    }
+
 
 }

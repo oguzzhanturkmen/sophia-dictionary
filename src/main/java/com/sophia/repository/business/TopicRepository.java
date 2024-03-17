@@ -1,5 +1,6 @@
 package com.sophia.repository.business;
 
+import com.sophia.entity.concrates.business.ChannelTag;
 import com.sophia.entity.concrates.business.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
 
 
     Page<Topic> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
+
+    @Query("SELECT t FROM Topic t JOIN t.channelTags tag WHERE tag.name IN :names")
+    Page<Topic> findTopicsByChannelTags(@Param("names") String[] names, Pageable pageable);
 }
