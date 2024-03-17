@@ -7,13 +7,13 @@ import com.sophia.payload.response.business.profile.UserFollowersResponse;
 import com.sophia.payload.response.wrapper.BasicResponseMessage;
 import com.sophia.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -78,6 +78,21 @@ public class UserController {
     @GetMapping("/profile/likedEntries")
     public ResponseEntity<List<EntryResponse>> getUsersLikedEntries(HttpServletRequest request){
         return userService.getUsersLikedEntries(request);
+    }
+    @PostMapping("/{userId}/uploadPhoto")
+    public ResponseEntity<String> uploadProfilePhoto(@PathVariable Long userId, @RequestParam("photo") MultipartFile photo) {
+        try {
+            // Convert photo to Base64 for storing as a string in the database
+            String base64Image = Base64.getEncoder().encodeToString(photo.getBytes());
+
+            // Assuming you have a service to update the user's profile photo
+            userService.updateUserProfilePhoto(userId, base64Image);
+
+            return ResponseEntity.ok("Photo uploaded successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not upload the photo");
+        }
     }
 
 

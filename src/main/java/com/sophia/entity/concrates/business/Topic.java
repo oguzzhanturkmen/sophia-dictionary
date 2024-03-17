@@ -45,5 +45,13 @@ public class Topic {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime lastUpdateDate;
 
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_topic_tags",
+            joinColumns = @JoinColumn(name = "topic_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_channel_id")
+    )
+    private List<ChannelTag> channelTags;
+
 
 }

@@ -5,6 +5,7 @@ import com.sophia.entity.concrates.user.User;
 import com.sophia.payload.response.business.profile.UserFollowersResponse;
 import com.sophia.payload.response.user.BasicUserResponse;
 import com.sophia.payload.response.user.UserProfileResponse;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +29,7 @@ public class UserMapper {
                 .followerCount(user.getFollowers().size())
                 .entryCount(user.getEntries().size())
                 .bio(user.getBio())
-                .profileImage(user.getProfileImage())
+                .profileImage(Base64.encodeBase64String(user.getProfileImage()))
                 .build();
     }
     public UserFollowersResponse mapUserToUserFollowersResponse(User user) {
@@ -37,7 +38,7 @@ public class UserMapper {
                 .userId(user.getId())
                 .entryCount(user.getEntries().size())
                 .bio(user.getBio())
-                .profileImage(user.getProfileImage())
+                .profileImage(Base64.encodeBase64String(user.getProfileImage()))
                 .build();
     }
 }

@@ -20,7 +20,7 @@ public class UserProfileResponse extends BaseUserResponse {
     private Integer followerCount;
     private Integer followingCount;
     private String bio;
-    private byte[] profileImage;
+    private String profileImage;
 
 
 

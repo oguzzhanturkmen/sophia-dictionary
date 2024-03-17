@@ -18,6 +18,7 @@ import com.sophia.payload.response.abstracts.BaseTopicResponse;
 import com.sophia.payload.response.wrapper.BasicResponseMessage;
 import com.sophia.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -153,5 +154,12 @@ public class UserService {
     public ResponseEntity<List<EntryResponse>> getUsersCreatedEntries(HttpServletRequest request) {
         User user = isUserExist((String) request.getAttribute("username"));
         return ResponseEntity.ok(user.getEntries().stream().map(entry -> entryMapper.mapEntryToEntryResponse(entry, user)).toList());
+    }
+
+    public void updateUserProfilePhoto(Long userId, String base64Image) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setProfileImage(Base64.encodeBase64(base64Image.getBytes()));
+        userRepository.save(user);
     }
 }
